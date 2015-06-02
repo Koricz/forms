@@ -68,6 +68,8 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
 <label title=hello<?php $_input = $_form["checkbox"]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->addAttributes(array (
   'title' => NULL,
 ))->attributes() ?>> <input<?php $_input = $_form["checkbox"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>> </label>
+<label<?php $_input = $_form["checkbox"]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->attributes() ?>
+><?php echo $_input->getLabel()->getHtml() ?></label>
 
 
 <?php $iterations = 0; foreach ($form['checklist']->items as $key => $label) { ?>
