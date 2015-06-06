@@ -25,19 +25,19 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
 	<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; if ($_label = $_input->getLabel()) echo $_label  ?>
 
 
-	<LABEL title=hello<?php $_input = $_form["username"]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->addAttributes(array (
+	<LABEL title=hello<?php $_input = $_form["username"]; echo $_input->getLabel()->addAttributes(array (
   'title' => NULL,
 ))->attributes() ?>>Name</LABEL>
-	<input value=val type class="hello"<?php $_input = $_form["username"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->addAttributes(array (
+	<input value=val type class="hello"<?php $_input = $_form["username"]; echo $_input->getControl()->addAttributes(array (
   'value' => NULL,
   'type' => NULL,
   'class' => NULL,
 ))->attributes() ?>>
 
-	<label<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->attributes() ?>></label>
-	<label<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->attributes() ?>
+	<label<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->getLabel()->attributes() ?>></label>
+	<label<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->getLabel()->attributes() ?>
 ><?php echo $_input->getLabel()->getHtml() ?></label>
-	<input<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>>
+	<input<?php $_input = is_object($form['username']) ? $form['username'] : $_form[$form['username']]; echo $_input->getControl()->attributes() ?>>
 
 	<?php if ($_label = $_form["my"]->getLabel()) echo $_label ; echo $_form["my"]->getControl() ?>
 
@@ -62,12 +62,12 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
 <?php if ($_label = $_form["checkbox"]->getLabelPart("")) echo $_label->startTag() ?>
  <?php echo $_form["checkbox"]->getControlPart("") ?> Label<?php if ($_label) echo $_label->endTag() ?>
 
-<label title=hello<?php $_input = $_form["checkbox"]; echo $_input->getLabelPart("")->addAttributes(array (
+<label title=hello<?php $_input = $_form["checkbox"]; echo $_input->getLabelPart()->addAttributes(array (
   'title' => NULL,
-))->attributes() ?>> <input<?php $_input = $_form["checkbox"]; echo $_input->getControlPart("")->attributes() ?>> </label>
-<label title=hello<?php $_input = $_form["checkbox"]; echo $_input->{method_exists($_input, 'getLabelPart')?'getLabelPart':'getLabel'}()->addAttributes(array (
+))->attributes() ?>> <input<?php $_input = $_form["checkbox"]; echo $_input->getControlPart()->attributes() ?>> </label>
+<label title=hello<?php $_input = $_form["checkbox"]; echo $_input->getLabelPart()->addAttributes(array (
   'title' => NULL,
-))->attributes() ?>> <input<?php $_input = $_form["checkbox"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>> </label>
+))->attributes() ?>> <input<?php $_input = $_form["checkbox"]; echo $_input->getControlPart()->attributes() ?>> </label>
 
 
 <?php $iterations = 0; foreach ($form['checklist']->items as $key => $label) { ?>
@@ -85,28 +85,28 @@ echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = $_contro
   'id' => NULL,
   'class' => NULL,
 ), FALSE) ?>>
-	<input<?php $_input = $_form["username"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>>
+	<input<?php $_input = $_form["username"]; echo $_input->getControl()->attributes() ?>>
 <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form, FALSE) ?></form>
 <?php } ?>
 
 
 <FORM<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormBegin($form = $_form = is_object($_control['myForm']) ? $_control['myForm'] : $_control[$_control['myForm']], array (
 ), FALSE) ?>>
-	<input<?php $_input = $_form["username"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>>
+	<input<?php $_input = $_form["username"]; echo $_input->getControl()->attributes() ?>>
 <?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form, FALSE) ?></FORM>
 
 
-<select<?php $_input = $_form["select"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>
+<select<?php $_input = $_form["select"]; echo $_input->getControl()->attributes() ?>
 ><?php echo $_input->getControl()->getHtml() ?></select>
 
 
 <textarea title="<?php echo Latte\Runtime\Filters::escapeHtml(10, ENT_COMPAT) ?>
-"<?php $_input = $_form["area"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->addAttributes(array (
+"<?php $_input = $_form["area"]; echo $_input->getControl()->addAttributes(array (
   'title' => NULL,
 ))->attributes() ?>><?php echo $_input->getControl()->getHtml() ?></textarea>
 
 
-<select<?php $_input = $_form["select"]; echo $_input->{method_exists($_input, 'getControlPart')?'getControlPart':'getControl'}()->attributes() ?>
+<select<?php $_input = $_form["select"]; echo $_input->getControl()->attributes() ?>
 ><?php echo $_input->getControl()->getHtml() ?></select>
 <?php
 %A%

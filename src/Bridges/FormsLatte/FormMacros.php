@@ -172,8 +172,10 @@ class FormMacros extends MacroSet
 					. ($node->htmlNode->attrs ? '->addAttributes(%2.var)' : '') . '->attributes()',
 				$name,
 				$words
-					? $method . 'Part(' . implode(', ', array_map([$writer, 'formatWord'], $words)) . ')'
-					: "{method_exists(\$_input, '{$method}Part')?'{$method}Part':'{$method}'}()",
+					? $words[0] !== ''
+						? $method . 'Part(' . implode(', ', array_map(array($writer, 'formatWord'), $words)) . ')'
+						: $method . 'Part()'
+					: $method . '()',
 				array_fill_keys(array_keys($node->htmlNode->attrs), NULL)
 			);
 		}
@@ -192,14 +194,26 @@ class FormMacros extends MacroSet
 
 	public function macroNameEnd(MacroNode $node, PhpWriter $writer)
 	{
+		$words = $node->tokenizer->fetchWords();
+		
 		preg_match('#^(.*? n:\w+>)(.*)(<[^?].*)\z#s', $node->content, $parts);
 		$tagName = strtolower($node->htmlNode->name);
 		if ($tagName === 'form') {
 			$node->content = $parts[1] . $parts[2] . '<?php echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd($_form, FALSE) ?>' . $parts[3];
 		} elseif ($tagName === 'label') {
 			if ($node->htmlNode->isEmpty) {
-				$node->content = $parts[1] . '<?php echo $_input->getLabel()->getHtml() ?>' . $parts[3];
-			}
+				$node->content = $parts[1];
+					if(count($words) === 1) {
+						$node->content .= '<?php echo $_input->getLabel()->getHtml() ?>';
+					} else {
+							if($words[1] === '') {
+								$node->content .= '<?php echo $_input->getLabelPart()->getHtml() ?>';
+							} else {
+								$node->content .= '<?php echo $_input->getLabelPart(' . $words[1] . ')->getHtml() ?>';
+						}
+					}
+					$node->content .= $parts[3];
+				}
 		} elseif ($tagName === 'button') {
 			if ($node->htmlNode->isEmpty) {
 				$node->content = $parts[1] . '<?php echo htmlspecialchars($_input->caption) ?>' . $parts[3];
